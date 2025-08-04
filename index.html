@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Impact Game</title>
+	<style type="text/css">
+		@font-face {font-family: 'hoboStd';src: url('media/fonts/hoboStd.ttf');}
+		html,body {
+			background-color: #000;
+			color: #fff;
+			font-family: helvetica, arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			font-size: 12pt;
+		}
+		
+		#canvas{
+			position: fixed;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+		}
+	</style>
+	
+	<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
+	<meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+	<script src="cordova.js"></script>
+	<!--<script type="text/javascript" src="js/fbPlugin.js"></script>-->
+	<script type="text/javascript" src="js/firebase.js"></script>
+	<!--<script type="text/javascript" src="js/firebase_init.js"></script>-->
+	<!--<script type="text/javascript" src="js/index_android.js"></script>-->
+	<script type="text/javascript" src="lib/impact/impact.js"></script>
+	<script type="text/javascript" src="lib/game/main.js"></script>
+	<!-- Start Google Analytics -->
+	<script type="text/javascript" charset="utf-8">
+	
+	
+	
+	<!-- var app = { -->
+		<!-- // Application Constructor -->
+		<!-- initialize: function() { -->
+			<!-- this.bindEvents(); -->
+		<!-- }, -->
+		<!-- bindEvents: function() { -->
+			<!-- document.addEventListener('deviceready', this.onDeviceReady, false); -->
+		<!-- }, -->
+		<!-- onDeviceReady: function() { -->
+			<!-- app.receivedEvent('deviceready'); -->
+		<!-- }, -->
+		<!-- // Update DOM on a Received Event -->
+		<!-- receivedEvent: function(id) { -->
+			<!-- // replaced with fake tracker id -->
+			<!-- refreshAnalytics(); -->
+		<!-- } -->
+	<!-- }; -->
+	<!-- app.initialize(); -->
+	<!-- function refreshAnalytics(){ -->
+		<!-- var settings = { -->
+			<!-- developerModeEnabled: false -->
+		<!-- } -->
+		<!-- window.FirebasePlugin.setConfigSettings(settings); -->
+		<!-- window.FirebasePlugin.logEvent("Start App", {content_type: "page_view", item_id: "home"}); -->
+		
+	<!-- } -->
+	// execute function
+	</script>
+	<!-- End Google Analytics -->
+</head>
+<body id="body">
+<script type="module" src="js/agw-integration.js"></script>
+</body>
+</html>

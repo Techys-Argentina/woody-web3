@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Impact Game - Firebase</title>
+	<style type="text/css">
+		@font-face {font-family: 'hoboStd';src: url('media/fonts/hoboStd.ttf');}
+		html,body {
+			background-color: #000;
+			color: #fff;
+			font-family: helvetica, arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			font-size: 12pt;
+		}
+		
+		#canvas{
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+		}
+	</style>
+	<script src="js/cocoon_webservice.js"></script>
+	<script src="js/cocoon_canvasplus.js"></script>
+	<script type="text/javascript" src="js/firebase.js"></script>
+	<script>
+	var crossPromotionBaseStorage='img/ads/cross_promotion/';
+	// Initialize Firebase
+	var config = {
+		apiKey: "AIzaSyAHMEIB0DMU2t5Boe5bnvA112ILYLj-TtU",
+		authDomain: "metal-brothers-65376.firebaseapp.com",
+		databaseURL: "https://metal-brothers-65376.firebaseio.com",
+		projectId: "metal-brothers-65376",
+		storageBucket: "metal-brothers-65376.appspot.com",
+		messagingSenderId: "772336392799"
+	};
+	if (!firebase.apps.length) {
+		firebase.initializeApp(config);
+	}
+	//stats, promotions and inapps
+	var arrLinks = firebase.database().ref().once('value').then(function(snapshot) {
+		var showAd=false;
+		var crossPromotionAds=[];
+		var giftCodes=[];
+		var setup=[];
+		var keysGifts=Object.keys(snapshot.val()["gifts"]);
+		var objectsGifts=snapshot.val()["gifts"];
+		var keys=Object.keys(snapshot.val()["ad_links"]);
+		var objects=snapshot.val()["ad_links"];
+		var keysSetup=Object.keys(snapshot.val()["setup_ads"]);
+		var objectsSetup=snapshot.val()["setup_ads"];
+		keys.forEach(function(key){
+			var storage = firebase.storage();
+			var storageRef = storage.ref();
+			var imgRef = storageRef.child(crossPromotionBaseStorage+objects[key].img);
+			imgRef.getDownloadURL().then(function(url_b) {
+				if(url_b!=null)
+					objects[key].img_url=url_b;
+				var imgRef2 = storageRef.child(crossPromotionBaseStorage+objects[key].img_large);
+				imgRef2.getDownloadURL().then(function(url_i) {
+					if(url_i!=null)
+						objects[key].img_large_url=url_i;
+					crossPromotionAds.push(objects[key]);
+					if(crossPromotionAds.length==keys.length){
+						//initial settings for Bubble
+						var codeCanvas="localStorage.setItem('crossPromotionAds','"+JSON.stringify(crossPromotionAds)+"');Ads.setCrossPromotionBubble();";
+						Cocoon.App.forwardAsync(codeCanvas);
+					}
+				}).catch(function(error) {
+					console.log("The get URL image failed: " + error.code);
+				});
+			}).catch(function(error) {
+					console.log("The get URL image failed: " + error.code);
+			});
+		});
+		keysGifts.forEach(function(key){
+			giftCodes.push(objectsGifts[key]);
+			if(giftCodes.length==keysGifts.length){
+				var codeCanvas="localStorage.setItem('giftCodes','"+JSON.stringify(giftCodes)+"');";
+				Cocoon.App.forwardAsync(codeCanvas);
+			}
+		});
+		keysSetup.forEach(function(key){
+			setup.push(objectsSetup[key]);
+			if(setup.length==keysSetup.length){
+				var codeCanvas="localStorage.setItem('setupAds','"+JSON.stringify(setup)+"');Ads.initChartBoost();";
+				Cocoon.App.forwardAsync(codeCanvas);
+			}
+		});
+	}, function (error) {
+		alert("The read failed: " + error.code);
+	});
+	</script>
+</head>
+<body id="body">
+</body>
+</html>
