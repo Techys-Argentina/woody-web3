@@ -1,30 +1,3 @@
-
-import { AbstractGameWallet } from '@abstract-foundation/agw-client';
-
-let agw;
-let playerAddress = null;
-
-async function initAGW() {
-  try {
-    agw = new AbstractGameWallet({
-      projectId: 'demo_project_id',  // Reemplazá con tu real projectId
-      clientId: 'demo_client_id'     // Reemplazá con tu real clientId
-    });
-
-    await agw.init();
-    const address = await agw.getAddress();
-    playerAddress = address;
-
-    console.log('Jugador conectado:', address);
-
-    await agw.signMessage('Confirmá tu identidad para iniciar el juego');
-    console.log('Firma completada');
-  } catch (err) {
-    console.error('Error al conectar AGW:', err);
-  }
-}
-
-
 //version 1.0
 ig.module( 
 	'game.main' 
@@ -191,7 +164,6 @@ ig.module(
 )
 .defines(function(){
 	lStorage =new ig.Storage();
-});
 	currentLevel=0;
 	currentWorld=0;
 	monedasNoAcumul=0;
@@ -243,11 +215,21 @@ ig.module(
 		background: new ig.Image( 'media/img/bg2.jpg' ),
 		showFbAd:true,
 		init: function() {
-			/*for(var i=0, len=localStorage.length; i<len; i++) {
-				var key = localStorage.key(i);
-				var value = localStorage[key];
-				console.log(key + " => " + value);
-			}*/
+			// Conexión con billetera AGW
+			if (window.agw && window.agw.connectWallet) {
+				window.agw.connectWallet({
+					projectId: 'demo-project-id',
+					clientId: 'demo-client-id',
+					message: 'Firmá este mensaje para identificarte en el juego'
+				}).then((res) => {
+					console.log('Dirección firmada:', res.address);
+					ig.game.playerAddress = res.address;
+				}).catch((err) => {
+					console.error('Error al firmar:', err);
+				});
+			} else {
+				console.warn('AGW no disponible');
+			}
 			if(ig.ua.mobile){
 				Ads.fetchRewardedVideo('game-over');
 				Ads.fetchRewardedVideo('free-coins');
@@ -1613,8 +1595,7 @@ ig.module(
 			//Cocoon.Utils.setTextCacheSize(0);
 			
 			ig.System.drawMode = ig.System.DRAW.AUTHENTIC;
-			initAGW().then(() => {
-  ig.main( '#canvas', Inicio, 60, 780, 480, 1 );
+			ig.main( '#canvas', Inicio, 60, 780, 480, 1 );
 			//Cocoon.Utils.setMaxMemory(100);
 			
 			if(ig.ua.iOS){
@@ -1661,11 +1642,9 @@ ig.module(
 		}, false);		
 	}
 	if(!ig.ua.mobile)
-		initAGW().then(() => {
-  ig.main( '#canvas', Inicio, 60, 780, 480, 1 );
+		ig.main( '#canvas', Inicio, 60, 780, 480, 1 );
 	
-	//initAGW().then(() => {
-  ig.main( '#canvas', Inicio, 60, 1280, 800, 1 );
+	//ig.main( '#canvas', Inicio, 60, 1280, 800, 1 );
 	
 });
 
