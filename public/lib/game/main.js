@@ -1635,6 +1635,6 @@ ig.module(
 		ig.main( '#canvas', Inicio, 60, 780, 480, 1 );
 	
 	//ig.main( '#canvas', Inicio, 60, 1280, 800, 1 );
-	
+	// actualización AGW wallet init
 });
 
