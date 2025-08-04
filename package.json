@@ -1,7 +1,7 @@
 {
   "name": "woody-web3",
   "version": "1.0.0",
-  "description": "Juego con integraci\u00f3n Abstract Wallet",
+  "description": "Juego con integración Abstract Wallet",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,6 +13,7 @@
     "viem": "^2.22.23"
   },
   "devDependencies": {
-    "vite": "^5.2.0"
+    "vite": "^5.2.0",
+    "vite-plugin-static-copy": "^0.5.0"
   }
 }
