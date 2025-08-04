@@ -1,0 +1,6 @@
+ig.module( 'game.levels.levels' )
+.requires( 'impact.image','game.entities.btn_level' )
+.defines(function(){
+LevelLevels=/*JSON[*/{"entities":[{"type":"EntityBtn_level","x":324,"y":168,"settings":{"level":3}},{"type":"EntityBtn_level","x":168,"y":168,"settings":{"level":1}},{"type":"EntityBtn_level","x":246,"y":168,"settings":{"level":2}},{"type":"EntityBtn_level","x":402,"y":168,"settings":{"level":4}},{"type":"EntityBtn_level","x":480,"y":168,"settings":{"level":5}},{"type":"EntityBtn_level","x":168,"y":252,"settings":{"level":6}},{"type":"EntityBtn_level","x":246,"y":252,"settings":{"level":7}},{"type":"EntityBtn_level","x":324,"y":252,"settings":{"level":8}},{"type":"EntityBtn_level","x":402,"y":252,"settings":{"level":9}},{"type":"EntityBtn_level","x":480,"y":252,"settings":{"level":10}}],"layer":[{"name":"bg","width":1,"height":1,"linkWithCollision":false,"visible":0,"tilesetName":"media/img/bg.jpg","repeat":false,"preRender":true,"distance":"1","tilesize":1000,"foreground":false,"data":[[0]]}]}/*]JSON*/;
+LevelLevelsResources=[new ig.Image('media/img/bg.jpg')];
+});
