@@ -1,3 +1,30 @@
+
+import { AbstractGameWallet } from '@abstract-foundation/agw-client';
+
+let agw;
+let playerAddress = null;
+
+async function initAGW() {
+  try {
+    agw = new AbstractGameWallet({
+      projectId: 'demo_project_id',  // Reemplazá con tu real projectId
+      clientId: 'demo_client_id'     // Reemplazá con tu real clientId
+    });
+
+    await agw.init();
+    const address = await agw.getAddress();
+    playerAddress = address;
+
+    console.log('Jugador conectado:', address);
+
+    await agw.signMessage('Confirmá tu identidad para iniciar el juego');
+    console.log('Firma completada');
+  } catch (err) {
+    console.error('Error al conectar AGW:', err);
+  }
+}
+
+
 //version 1.0
 ig.module( 
 	'game.main' 
@@ -164,6 +191,7 @@ ig.module(
 )
 .defines(function(){
 	lStorage =new ig.Storage();
+});
 	currentLevel=0;
 	currentWorld=0;
 	monedasNoAcumul=0;
@@ -1585,7 +1613,8 @@ ig.module(
 			//Cocoon.Utils.setTextCacheSize(0);
 			
 			ig.System.drawMode = ig.System.DRAW.AUTHENTIC;
-			ig.main( '#canvas', Inicio, 60, 780, 480, 1 );
+			initAGW().then(() => {
+  ig.main( '#canvas', Inicio, 60, 780, 480, 1 );
 			//Cocoon.Utils.setMaxMemory(100);
 			
 			if(ig.ua.iOS){
@@ -1632,9 +1661,11 @@ ig.module(
 		}, false);		
 	}
 	if(!ig.ua.mobile)
-		ig.main( '#canvas', Inicio, 60, 780, 480, 1 );
+		initAGW().then(() => {
+  ig.main( '#canvas', Inicio, 60, 780, 480, 1 );
 	
-	//ig.main( '#canvas', Inicio, 60, 1280, 800, 1 );
-	// actualización AGW wallet init
+	//initAGW().then(() => {
+  ig.main( '#canvas', Inicio, 60, 1280, 800, 1 );
+	
 });
 
