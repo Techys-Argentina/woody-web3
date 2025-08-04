@@ -1,7 +1,7 @@
 {
   "name": "woody-web3",
   "version": "1.0.0",
-  "description": "Juego con integraci\u00f3n Abstract Wallet",
+  "description": "Juego con integración Abstract Wallet",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@abstract-foundation/agw-client": "^1.4.4",
-    "viem": "^1.24.0"
+    "@abstract-foundation/agw-client": "^1.8.7",
+    "viem": "^2.22.23"
   },
   "devDependencies": {
     "vite": "^5.2.0"
